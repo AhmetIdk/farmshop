@@ -3,6 +3,7 @@
 <div class="main-top">
     <div class="container-fluid">
         <div class="row">
+
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="custom-select-box">
                     <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
@@ -16,19 +17,73 @@
                 </div>
                 <div class="our-link">
                     <ul>
-                        <li><a href="#"><i class="fa fa-user s_color"></i> My Account</a></li>
                         <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
                         <li><a href="#"><i class="fas fa-headset"></i> Contact Us</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="login-box">
-                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="Sign In">
-                        <option>Register Here</option>
-                        <option>Sign In</option>
-                    </select>
+
+            <!-- discounts -->
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 right">
+                <div class="text-slid-box">
+                    <div id="offer-box" class="carouselTicker">
+                        <ul class="offer-box">
+                            <li>
+                                <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT80
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> 50% - 80% off on Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 10%! Shop Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 50%! Shop Now
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 10%! Shop Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> 50% - 80% off on Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT30
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 50%! Shop Now 
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
+
+            <!-- user login -->
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 right">
+                {% if user.id is not None %}
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle fa fa-user s_color" data-toggle="dropdown">Merhaba {{ user.username }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'user_profile' %}" class="dropdown-item">Profil Sayfam</a>
+                            {% comment %} <a href="{% url 'user_orders' %}" class="dropdown-item">Siparişlerim</a>
+                            <a href="{% url 'user_order_product' %}" class="dropdown-item">Sipariş Ürünleri</a>
+                            <a href="{% url 'user_comments' %}" class="dropdown-item">Yorumlarım</a>
+                            <a href="{% url 'user_favorites' %}" class="dropdown-item">Favori Ürünlerim</a>
+                            <a href="{% url 'user_logout' %}" class="dropdown-item">Çıkış</a> {% endcomment %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle fa fa-user s_color" data-toggle="dropdown">Giriş</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'user_login' %}" class="dropdown-item">Giriş yap</a>
+                            <a href="{% url 'user_logout' %}" class="dropdown-item">Kayıt ol</a>
+                        </div>
+                    </div>
+                {% endif %}
+                {% comment %} <li><a href="#"><i class="fa fa-user s_color"></i> My Account</a></li> {% endcomment %}
+
+                
+                <!-- discounts -->
                 <div class="text-slid-box">
                     <div id="offer-box" class="carouselTicker">
                         <ul class="offer-box">
@@ -117,6 +172,66 @@
                 </ul>
             </div>
             <!-- End Atribute Navigation -->
+
+            <!-- user login -->
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 right">
+                {% if user.id is not None %}
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle fa fa-user s_color" data-toggle="dropdown">Merhaba {{ user.username }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'user_profile' %}" class="dropdown-item">Profil Sayfam</a>
+                            {% comment %} <a href="{% url 'user_orders' %}" class="dropdown-item">Siparişlerim</a>
+                            <a href="{% url 'user_order_product' %}" class="dropdown-item">Sipariş Ürünleri</a>
+                            <a href="{% url 'user_comments' %}" class="dropdown-item">Yorumlarım</a>
+                            <a href="{% url 'user_favorites' %}" class="dropdown-item">Favori Ürünlerim</a>{% endcomment %}
+                            <a href="{% url 'user_logout' %}" class="dropdown-item">Çıkış</a> 
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle fa fa-user s_color" data-toggle="dropdown">Giriş</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'user_login' %}" class="dropdown-item">Giriş yap</a>
+                            <a href="{% url 'user_register' %}" class="dropdown-item">Kayıt ol</a>
+                        </div>
+                    </div>
+                {% endif %}
+                {% comment %} <li><a href="#"><i class="fa fa-user s_color"></i> My Account</a></li> {% endcomment %}
+
+                
+                <!-- discounts -->
+                <div class="text-slid-box">
+                    <div id="offer-box" class="carouselTicker">
+                        <ul class="offer-box">
+                            <li>
+                                <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT80
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> 50% - 80% off on Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 10%! Shop Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 50%! Shop Now
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 10%! Shop Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> 50% - 80% off on Vegetables
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT30
+                            </li>
+                            <li>
+                                <i class="fab fa-opencart"></i> Off 50%! Shop Now 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         <!-- Start Side Menu -->
         <div class="side">

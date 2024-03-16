@@ -1,0 +1,14 @@
+{% if user.id is not None %}
+    <div class=" mb-5">
+        <h2 class="section-title px-2"><span class="">Kullanıcı Paneli</span></h2>
+        <a href="{% url 'user_profile' %}" class="dropdown-item">Profil Sayfam</a>
+        <a href="/user/myorders" class="dropdown-item">Siparişlerim</a>
+        <a href="/user/myorders_products" class="dropdown-item">Sipariş Ürünleri</a>
+        <a href="/user/mycomments" class="dropdown-item">Yorumlarım</a>
+        <a href="/user/myfavorits" class="dropdown-item">Favori Ürünlerim</a>
+        <a href="/user/myproducts" class="dropdown-item">Ürünlerim</a>
+        <a href="{% url 'user_logout' %}" class="dropdown-item">Çıkış</a>
+    </div>
+{% else %}
+    Kullanıcı işlemlerine erişmek için oturum açın
+{% endif %}

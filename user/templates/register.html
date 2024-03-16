@@ -1,0 +1,39 @@
+{% extends "user_base.html" %}
+{% load static %}
+
+<!-- Title box -->
+{% block title_box %}
+    {% include "partials/_title_box.html" with title="Giriş" parent_title="Profil" %}
+{% endblock title_box %}
+
+
+{% block user_content %}
+
+    <!-- Login -->
+    <div class="contact-form">
+
+        <!-- login message -->
+        <div id="success">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+            <!-- login form -->
+        <form name="sentMessage" action="#" id="contactForm" novalidate="novalidate" method="post">
+            {% csrf_token %}
+            <div class="control-group">
+                {{ form.as_p }}
+                <p class="help-block text-danger"></p>
+            </div>
+            <div>
+                <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Log in
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock user_content %}

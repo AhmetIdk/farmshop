@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Page Metas -->
+{% block metas %} 
+    <title> Profil | Farmshop</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+{% endblock %}
+
+{% comment %} <!-- Title box -->
+{% block title_box %}
+    {% include "partials/_title_box.html" with title="Giriş" parent_title="Profil" %}
+{% endblock title_box %} {% endcomment %}
+
+{% block content %}
+    <!-- Start Shop Page  -->
+    <div class="shop-box-inner">
+        <div class="container">
+            <div class="row">
+
+                <!-- sidebar -->
+				<div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                    {% include "partials/_user_sidebar.html" %}
+                </div>
+
+                <!-- content -->
+                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                    {% block user_content %}{% endblock user_content %}
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+{% endblock content %}
