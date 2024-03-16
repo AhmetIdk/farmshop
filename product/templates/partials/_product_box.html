@@ -1,0 +1,20 @@
+<div class="products-single fix">
+    <div class="box-img-hover">
+        {% comment %} <div class="type-lb">
+            <p class="sale">Sale</p>
+        </div> {% endcomment %}
+        <img src="{{ urun.main_image.url }}" class="img-fluid" alt="Image">
+        <div class="mask-icon">
+            <ul>
+                <li><a href="{% url 'shop' %}{{ urun.id }}/{{ urun.slug }}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                {% comment %} <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li> {% endcomment %}
+                <li><a href="/order/addtocart/{{ urun.id }}" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+            </ul>
+            <a class="cart" href="#">Sepete Ekle</a>
+        </div>
+    </div>
+    <div class="why-text">
+        <h4> {{ urun.title }} </h4>
+        <h5> {{ urun.price }} </h5>
+    </div>
+</div>

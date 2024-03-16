@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Page Metas -->
+{% block metas %} 
+    <title> Mağaza | Farmshop</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+{% endblock %}
+
+<!-- Title box -->
+{% block title_box %}
+    {% include "partials/_title_box.html" with title="Mağaza" parent_title="Anasayfa" %}
+{% endblock title_box %}
+
+{% block content %}
+    <!-- Start Shop Page  -->
+    <div class="shop-box-inner">
+        <div class="container">
+            <div class="row">
+
+                <!-- Shop area -->
+                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                    <div class="right-product-box">
+                        <div class="product-item-filter row">
+
+                            <!-- Sıralama -->
+                            <div class="col-12 col-sm-8 text-center text-sm-left">
+                                <div class="toolbar-sorter-right">
+                                    <span>Sort by </span>
+                                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+									<option data-display="Select">Nothing</option>
+									<option value="1">Popularity</option>
+									<option value="2">High Price → High Price</option>
+									<option value="3">Low Price → High Price</option>
+									<option value="4">Best Selling</option>
+								</select>
+                                </div>
+                                <p>Showing all 4 results</p>
+                            </div>
+
+                            <!-- görünüm butonları -->
+                            <div class="col-12 col-sm-4 text-center text-sm-right">
+                                <ul class="nav nav-tabs ml-auto">
+                                    <li>
+                                        <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fa fa-th"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="#list-view" data-toggle="tab"> <i class="fa fa-list-ul"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ürünler -->
+                        <div class="product-categorie-box">
+                            <div class="tab-content">
+
+                                <!-- Tablo görünümü -->
+                                <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                    <div class="row">
+                                        {% for urun in urunler %}
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                {% include 'partials/_product_box.html' %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <!-- Liste görünümü  -->
+                                <div role="tabpanel" class="tab-pane fade" id="list-view">
+                                    {% for urun in urunler %}
+                                    <div class="list-view-box">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        {% comment %} <div class="type-lb">
+                                                            <p class="new">New</p>
+                                                        </div> {% endcomment %}
+                                                        <img src="{{ urun.main_image.url }}" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="{% url 'shop' %}{{ urun.id }}/{{ urun.slug }}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                {% comment %} <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li> {% endcomment %}
+                                                                <li><a href="/order/addtocart/{{ urun.id }}" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            </ul>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                                <div class="why-text full-width">
+                                                    <h4>{{ urun.title }}</h4>
+                                                    <h5>{{ urun.price }}</h5>
+                                                    <p>{{ urun.description }}</p>
+                                                    <a class="btn hvr-hover" href="#">Sepete Ekle</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- sidebar -->
+				<div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                    <div class="product-categori">
+                        <!-- arama kutusu -->
+                        <div class="search-product">
+                            <form action="{% url 'search' %}" method="post">
+                                {% csrf_token %}
+                                <input class="form-control" name="query" placeholder="Search here..." type="text">
+                                <button type="submit"> <i class="fa fa-search"></i> </button>
+                            </form>
+                        </div>
+                        <!-- Kategori Filtreleme -->
+                        <div class="filter-sidebar-left">
+                            <div class="title-left">
+                                <h3>Kategoriler</h3>
+                            </div>
+                            
+                           
+                            <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                                {% load mptt_tags %}
+                                {% recursetree category %}
+                                    {% if node.is_leaf_node %}
+                                        <a href="/category/{{ node.id }}/{{ node.slug }}" class="list-group-item list-group-item-action"> {{  node.title }} </a>
+                                    {% else %}
+                                        <div class="list-group-collapse sub-men">
+                                            <div class="list-group-item list-group-item-action">
+                                                <a href="#sub-men1" data-toggle="collapse">∨</a>
+                                                <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}  
+                                                    {% comment %} <small class="text-muted">(102)</small> {% endcomment %}
+                                                </a>
+                                                
+                                            </div>
+                                            
+
+                                            <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
+                                                <div class="list-group">
+                                                    {% comment %} <a href="/category/{{ node.id }}/{{ node.slug }}" class="list-group-item list-group-item-action"> {{ node.title }} </a> {% endcomment %}
+                                                    <a href="/category/{{ children.id }}/{{ children.slug }}" class="list-group-item list-group-item-action">{{children}} </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endrecursetree %}
+                             </div>
+                        </div>
+                        <!-- Fiyat Filtreleme -->
+                        <div class="filter-price-left">
+                            <div class="title-left">
+                                <h3>Fiyat</h3>
+                            </div>
+                            <div class="price-box-slider">
+                                <div id="slider-range"></div>
+                                <p>
+                                    <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
+                                    <button class="btn hvr-hover" type="submit">Filtrele</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+{% endblock content %}

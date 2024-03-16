@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <!-- metas -->
+    {% block metas %} 
+        <!-- Site Metas -->
+        <title> Farmshop</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    {% endblock %}
+
+    <!-- head -->
+    {% include 'partials/_head.html' %} 
+
+    <!-- page specific css files -->
+    {% block css_files %} {% endblock %}
+</head>
+
+<body>
+    <!-- navbar -->
+    {% include 'partials/_navbar.html' %} 
+
+    <!-- title box, if page has it -->
+    {% block title_box %}{% endblock %}
+    
+    <!--content-->
+    {% block content %}{% endblock %}
+
+    <!-- footer -->
+    {% include 'partials/_footer.html' %} 
+
+    <!-- main js files -->
+    {% include 'partials/_js.html' %} 
+    <!-- page specific js files -->
+    {% block js_files %} {% endblock %} 
+</body>

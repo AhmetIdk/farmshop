@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Page Metas -->
+{% block metas %} 
+    <!-- Site Metas -->
+    <title> İletişim | Farmshop</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+{% endblock %}
+
+<!-- Title box -->
+{% block title_box %}
+    {% include "partials/_title_box.html" with title="İletişim" parent_title="Anasayfa"%}
+{% endblock title_box %}
+
+<!-- Start contact page -->
+{% block content %}
+    <!-- Start contact us -->
+    <div class="contact-box-main">
+        <div class="container">
+            <div class="row">
+
+                <!-- Contact Form -->
+                <div class="col-lg-8 col-sm-12">
+                    <div class="contact-form-right">
+                        <h2>İletişim</h2>
+                        <form id="contactForm" name="sentMessage" novalidate="novalidate" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ form.name }}
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ form.email }}
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ form.subject }}
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ form.message }}
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <div class="submit-button text-center">
+                                        <button class="btn hvr-hover" id="submit" type="submit">Send Message</button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-4 col-sm-12">
+                    <div class="contact-info-left">
+                        {{ setting.contact | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact Us -->
+{% endblock %}
