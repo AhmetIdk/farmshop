@@ -2,6 +2,8 @@
     <div class=" mb-5">
         <h2 class="section-title px-2"><span class="">Kullanıcı Paneli</span></h2>
         <a href="{% url 'user_profile' %}" class="dropdown-item">Profil Sayfam</a>
+        <a href="{% url 'user_update' %}" class="dropdown-item">Profil Düzenle</a>
+        <a href="{% url 'user_password' %}" class="dropdown-item">Şifre Değiştir</a>
         <a href="/user/myorders" class="dropdown-item">Siparişlerim</a>
         <a href="/user/myorders_products" class="dropdown-item">Sipariş Ürünleri</a>
         <a href="/user/mycomments" class="dropdown-item">Yorumlarım</a>

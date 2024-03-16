@@ -78,3 +78,33 @@ def user_update(request):
         context = {"user_form": user_form, "profile_form": profile_form}
         return render(request, 'user_update.html', context)
 
+@login_required(login_url='/user/login')
+def user_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return HttpResponseRedirect('/user')
+        else:
+            messages.error(request, 'Please correct the error below.<br>' + str(form.errors))
+            return HttpResponseRedirect('/user/password')
+    else:
+        form = PasswordChangeForm(request.user)
+        return render(request, 'user_password_update.html', {'form': form})
+    
+@login_required(login_url='/user/login')
+def user_comments(request):
+    comments = Comment.objects.filter(user=request.user)
+    return render(request, 'user_comments.html', {'comments': comments})
+
+@login_required(login_url='/user/login')
+def user_delete_comment(request, id):
+    current_user = request.user
+    try:
+        Comment.objects.filter(id=id, user_id=current_user.id).delete()
+        messages.success(request, 'Mesajınız Başarıyla Silinmiştir')
+    except Exception:
+        messages.warning(request, 'Mesajınız Silinememiştir {}'.format(Exception))
+    return HttpResponseRedirect('/user/mycomments')
