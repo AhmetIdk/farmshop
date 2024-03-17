@@ -75,9 +75,19 @@
 						</ul>
 
 						<div class="add-to-btn">
+                            <div id="success">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-{{ message.tags }}" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
 							<div class="add-comp">
-								<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Satın Al </a>
-								<a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i> İstek Listesine Ekle</a>
+								<a class="btn hvr-hover" href="{% url 'addtocart' id=urun.id %}"><i class="fas fa-sync-alt"></i> Satın Al </a>
+								<a class="btn hvr-hover" href="{% url 'addfavorite' id=urun.id %}"><i class="fas fa-heart"></i> İstek Listesine Ekle</a>
 							</div>
 							<div class="share-bar">
 								<a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>

@@ -5,10 +5,9 @@
         <a href="{% url 'user_update' %}" class="dropdown-item">Profil Düzenle</a>
         <a href="{% url 'user_password' %}" class="dropdown-item">Şifre Değiştir</a>
         <a href="/user/myorders" class="dropdown-item">Siparişlerim</a>
-        <a href="/user/myorders_products" class="dropdown-item">Sipariş Ürünleri</a>
+        <a href="{% url 'user_order_products' %}" class="dropdown-item">Sipariş Ürünleri</a>
         <a href="/user/mycomments" class="dropdown-item">Yorumlarım</a>
-        <a href="/user/myfavorits" class="dropdown-item">Favori Ürünlerim</a>
-        <a href="/user/myproducts" class="dropdown-item">Ürünlerim</a>
+        <a href="{% url 'user_favorites' %}" class="dropdown-item">Favori Ürünlerim</a>
         <a href="{% url 'user_logout' %}" class="dropdown-item">Çıkış</a>
     </div>
 {% else %}

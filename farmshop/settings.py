@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'home',
     'product',
     'user',
+    'order',
     
     'ckeditor',
     'ckeditor_uploader',

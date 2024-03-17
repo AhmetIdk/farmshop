@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 # from order.models import *
+from order.models import Favorite, OrderProduct
 from product.models import *
 from user.forms import *
 from user.models import *
@@ -108,3 +109,44 @@ def user_delete_comment(request, id):
     except Exception:
         messages.warning(request, 'Mesajınız Silinememiştir {}'.format(Exception))
     return HttpResponseRedirect('/user/mycomments')
+
+@login_required(login_url='/login')  # Check login
+def favorites(request):
+    current_user = request.user  # Access User Session information
+    favorites = Favorite.objects.filter(user_id=current_user.id)
+    context = {'favorites': favorites}
+    return render(request, 'user_favorites.html', context)
+
+
+# @login_required(login_url='/login')  # Check login
+# def user_orders(request):
+#     current_user = request.user
+#     orders = Order.objects.filter(user_id=current_user.id)
+#     context = {'orders': orders, }
+#     return render(request, 'user_orders.html', context)
+
+
+# @login_required(login_url='/login')  # Check login
+# def user_order_detail(request, id):
+#     current_user = request.user
+#     order = Order.objects.get(user_id=current_user.id, id=id)
+#     orderitems = OrderProduct.objects.filter(order_id=id)
+#     context = {'order': order, 'orderitems': orderitems}
+#     return render(request, 'user_order_detail.html', context)
+
+
+@login_required(login_url='/login')  # Check login
+def user_order_products(request):
+    current_user = request.user
+    order_product = OrderProduct.objects.filter(user_id=current_user.id).order_by('-id')
+    context = {'order_product': order_product}
+    return render(request, 'user_order_products.html', context)
+
+
+# @login_required(login_url='/login')  # Check login
+# def user_order_product_detail(request, id, oid):
+#     current_user = request.user
+#     order = Order.objects.get(user_id=current_user.id, id=oid)
+#     orderitems = OrderProduct.objects.filter(id=id, user_id=current_user.id)
+#     context = {'order': order, 'orderitems': orderitems, }
+#     return render(request, 'user_order_detail.html', context)

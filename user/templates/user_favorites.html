@@ -1,0 +1,91 @@
+{% extends "user_base.html" %}
+{% load static %}
+
+<!-- Title box -->
+{% block title_box %}
+    {% include "partials/_title_box.html" with title="Giriş" parent_title="Profil" %}
+{% endblock title_box %}
+
+
+{% block user_content %}
+
+    <!-- Login -->
+    <div class="contact-form">
+
+        <!-- login message -->
+        <div id="success">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- login form -->
+        <div class="col-md-10">
+            <div class="order-summary clearfix">
+                <div class="section-title">
+                    <h3 class="title">Favorite Product List</h3>
+                </div>
+
+                <table class="shopping-cart-table table">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th class="text-left">Id </th>
+                            <th class="text-left">Product Name </th>
+                            <th class="text-left">Image </th>
+                            <th class="text-left">Price </th>
+                            <th class="text-left">Status </th>
+                            <th class="text-left">Add to cart </th>
+                            <th class="text-left">Remove </th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody class="align-middle">
+                        {% for fav in favorites %}
+                            <tr>
+                                <td class="text-left">
+                                    <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}">
+                                        {% if rs.variant.image_id > 0 %}
+                                            <img src="{{rs.variant.image }}" alt="" style="height: 80px">
+                                        {% else %}
+                                            <img src="{{rs.product.image.url}}" alt="" style="height: 80px">
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>{{ rs.product.title}} </td>
+                                <td class="align-middle">
+                                    <a href="{% url 'productDetail' fav.product.id fav.product.slug %}">
+                                        <img src="{{ fav.product.image.url }}" alt="" style="width: 50px;">
+                                        {{ fav }}
+                                    </a>
+                                </td>
+                                <td class="text-left">{{ rs.price}} </td>
+                                <td class="text-left">{{ rs.status}} </td>
+                                <td class="text-left">
+                                    <a class="primary-btn" href="/user/order_product_detail/{{ rs.id }}/{{ rs.order.id}}"> Detail </a>
+                                </td>
+                                
+                                <td>
+                                    <a href="/order/addtocart/{{ fav.id }}">
+                                        <button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/order/delfavorite/{{ fav.id }}">
+                                        <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+    
+                        </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock user_content %}

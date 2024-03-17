@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 from . import views
+from order.urls import urlpatterns as other_app_urls
 
 urlpatterns = [
     path('', views.shop, name="shop"),
